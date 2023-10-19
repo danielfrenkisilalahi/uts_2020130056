@@ -19,17 +19,6 @@ class _HomePageState extends State<HomePage> {
             height: MediaQuery.of(context).size.shortestSide,
             fit: BoxFit.cover,
           ),
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(
-                Icons.sports_basketball,
-                color: Color.fromARGB(255, 0, 0, 0),
-                size: 40,
-              ),
-            ],
-          ),
           const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
