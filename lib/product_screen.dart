@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:uts_2020130056/cart_item_model.dart';
+import 'package:uts_2020130056/cart_provider.dart';
 import 'package:uts_2020130056/currency_format.dart';
 import 'package:uts_2020130056/jersey.dart';
 import 'package:uts_2020130056/product_screen.dart';
@@ -14,6 +18,8 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _HomePageState extends State<ProductScreen> {
+  final TextEditingController qtyController = TextEditingController(text: "1");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,17 +41,31 @@ class _HomePageState extends State<ProductScreen> {
             Row(
               children: [
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      qtyController.text =
+                          (int.parse(qtyController.text) + 1).toString();
+                    });
+                  },
                   child: const Icon(Icons.add),
                 ),
                 const SizedBox(
                   width: 5,
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 75,
                   child: Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      readOnly: true,
+                      controller: qtyController,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      onChanged: (value) {},
+                      decoration: const InputDecoration(
+                        labelText: '',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -55,13 +75,24 @@ class _HomePageState extends State<ProductScreen> {
                   width: 5,
                 ),
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (int.parse(qtyController.text) > 1) {
+                      qtyController.text =
+                          (int.parse(qtyController.text) - 1).toString();
+                    }
+                  },
                   child: const Icon(Icons.remove),
                 ),
               ],
             ),
             MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                CartItemModel item =
+                    CartItemModel(widget.jersey, int.parse(qtyController.text));
+
+                Provider.of<CartProvider>(context, listen: false).add(item);
+                Navigator.pop(context);
+              },
               height: 65,
               color: Colors.blue,
               minWidth: 150,
@@ -99,7 +130,7 @@ class _HomePageState extends State<ProductScreen> {
               height: 30,
             ),
             Text(
-              CurrencyFormat.convertToIdr(widget.jersey.price!, 2),
+              CurrencyFormat.convertToIdr(widget.jersey.price!, 0),
               style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Color.fromARGB(255, 0, 0, 0),

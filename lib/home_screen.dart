@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uts_2020130056/cart.dart';
 import 'package:uts_2020130056/jersey.dart';
-import 'package:uts_2020130056/login_screen.dart';
 import 'package:uts_2020130056/product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,7 +53,10 @@ class _HomePageState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => const Cart()));
+        },
         child: const Icon(Icons.shopping_cart),
       ),
       body: SingleChildScrollView(
