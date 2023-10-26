@@ -19,7 +19,7 @@ class _HomePageState extends State<Cart> {
             children: [
               Icon(
                 Icons.arrow_back,
-                color: Color.fromARGB(255, 1, 1, 1),
+                color: Color.fromARGB(255, 40, 38, 38),
                 size: 30,
               ),
               SizedBox(
