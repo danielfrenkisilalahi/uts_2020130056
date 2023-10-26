@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uts_2020130056/cart.dart';
+import 'package:uts_2020130056/cart_provider.dart';
 import 'package:uts_2020130056/jersey.dart';
 import 'package:uts_2020130056/product_screen.dart';
 
@@ -52,12 +54,26 @@ class _HomePageState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const Cart()));
+      floatingActionButton: Consumer<CartProvider>(
+        builder: (context, CartProvider data, child) {
+          return FloatingActionButton(
+            onPressed: () {
+              if (data.totalItem > 0) {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => const Cart()));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Cart Masih Kosong',
+                    ),
+                  ),
+                );
+              }
+            },
+            child: const Icon(Icons.shopping_cart),
+          );
         },
-        child: const Icon(Icons.shopping_cart),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -86,37 +102,37 @@ class _HomePageState extends State<HomeScreen> {
                 children: List.generate(
                   listJersey.length,
                   (index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ProductScreen(
-                              jersey: listJersey[index],
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 206, 206, 206),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Center(
-                              child: Image.asset(
-                                listJersey[index].image!,
-                                height: 200,
-                                fit: BoxFit.cover,
+                    return Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ProductScreen(
+                                jersey: listJersey[index],
                               ),
                             ),
-                            Text(listJersey[index].title!),
-                          ],
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 206, 206, 206),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: Image.asset(
+                                    listJersey[index].image!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Text(listJersey[index].title!),
+                            ],
+                          ),
                         ),
                       ),
                     );

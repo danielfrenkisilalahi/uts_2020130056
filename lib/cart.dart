@@ -61,8 +61,8 @@ class _CartState extends State<Cart> {
                   Provider.of<CartProvider>(context, listen: false)
                       .remove(index);
 
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('${item.jersey.title} dismissed')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('${item.jersey.title} dihapus')));
                 },
                 child: ListTile(
                   title: Text(item.jersey.title!),

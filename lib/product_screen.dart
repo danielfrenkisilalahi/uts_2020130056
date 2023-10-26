@@ -101,56 +101,61 @@ class _HomePageState extends State<ProductScreen> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Image.asset(
-                widget.jersey.image!,
-                height: 250,
-                alignment: Alignment.center,
-                fit: BoxFit.cover,
-              ),
+      body: ListView(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Image.asset(
+                    widget.jersey.image!,
+                    height: 250,
+                    alignment: Alignment.center,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  widget.jersey.title!,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 30,
+                      fontStyle: FontStyle.normal),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  CurrencyFormat.convertToIdr(widget.jersey.price!, 0),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 24,
+                      fontStyle: FontStyle.normal),
+                  textAlign: TextAlign.end,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  widget.jersey.description!,
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 15,
+                      fontStyle: FontStyle.normal),
+                  textAlign: TextAlign.start,
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              widget.jersey.title!,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontSize: 30,
-                  fontStyle: FontStyle.normal),
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Text(
-              CurrencyFormat.convertToIdr(widget.jersey.price!, 0),
-              style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontSize: 24,
-                  fontStyle: FontStyle.normal),
-              textAlign: TextAlign.end,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Text(
-              widget.jersey.description!,
-              style: const TextStyle(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontSize: 15,
-                  fontStyle: FontStyle.normal),
-              textAlign: TextAlign.start,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
